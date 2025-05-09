@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { stock_data_db } = require("../db/index");
 
 const profileSchema = new mongoose.Schema(
   {
@@ -32,4 +33,4 @@ const profileSchema = new mongoose.Schema(
 //   next();
 // });
 
-module.exports = mongoose.model("Profile", profileSchema, "profiles");
+module.exports = stock_data_db.model("Profile", profileSchema);

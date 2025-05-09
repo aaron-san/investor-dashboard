@@ -15,13 +15,13 @@ const Sidebar: React.FC<ISidebar> = ({ openSidebar, setOpenSidebar }) => {
   return (
     <aside
       // style={{ gridArea: "sidebar" }}
-      className="row-start-2 row-end-5 mt-12 min-h-[calc(100vh-40px)]"
+      className="relative row-start-2 row-end-5 mt-12 min-h-[calc(100vh-36px)]"
     >
       <div
-        className={`border-r border-y border-border/60  bg-border/20 rounded-r overflow-hidden transition-all duration-50 ease-out h-full`}
-        // ${!openSidebar && "w-[40px] h-[40px] rounded-br-xl border-b"}
+        className={`top-14 fixed w-36 border-r border-y border-border/60 bg-border/20 rounded-tr overflow-hidden transition-all duration-50 ease-out h-[calc(100vh-40px)] z-10 flex flex-col items-center justify-start gap-4 shadow-lg
+        ${!openSidebar && "w-[42px] h-[40px] rounded-br-xl border-b"}`}
       >
-        <div className="relative">
+        <div className="relative w-full">
           <FiAlignJustify
             className="top-2 right-2 absolute hover:text-green-200 text-xl cursor-pointer"
             onClick={() => setOpenSidebar(!openSidebar)}
@@ -29,8 +29,8 @@ const Sidebar: React.FC<ISidebar> = ({ openSidebar, setOpenSidebar }) => {
         </div>
 
         <div
-          className={`flex flex-col gap-4 pt-16`}
-          //  ${!openSidebar ? "" : "ml-4"}`}
+          className={`flex flex-col gap-4 pt-16 w-full
+           ${!openSidebar ? "px-1" : "pl-4"}`}
         >
           <Link href="/about" className="hover:text-green-300">
             <div className="flex items-center gap-1">

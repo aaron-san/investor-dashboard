@@ -2,14 +2,16 @@
 import Image from "next/image";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { PricesChart } from "@/components/PricesChart";
+import { PriceChart } from "@/components/PriceChart";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
 import Notepad from "@/components/Notepad";
 import Footer from "@/components/Footer";
 import Table from "@/components/Table";
 import CompanySearch from "@/components/CompanySearch";
-import Description from "@/components/Description";
+import Description from "@/components/Profile";
+import Notes from "@/components/Notes";
+import { EXJPUSChart } from "@/components/EXJPUSChart";
 
 export default function Home() {
   const [notes, setNotes] = useState<INote[]>([]);
@@ -28,13 +30,10 @@ export default function Home() {
       <CompanySearch />
       <Notepad />
       <Description />
-      <PricesChart />
+      <PriceChart />
+      <EXJPUSChart />
       <Table />
-      <ul>
-        {notes.map((note) => {
-          return <li key={note._id}>{note.company}</li>;
-        })}
-      </ul>
+      <Notes />
     </div>
   );
 }

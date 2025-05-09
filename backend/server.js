@@ -17,15 +17,45 @@ app.use(
   })
 );
 
-// MongoDB connection
-mongoose
-  .connect(process.env.DATABASE_URL)
-  .then(() => {
-    console.log("MongoDB connected to:", mongoose.connection.name);
-  })
-  .catch((err) => {
-    console.error("MongoDB connection error:", err);
-  });
+// // MongoDB connection
+// const investment_data_db = mongoose.createConnection(
+//   process.env.DATABASE_URL_INVESTMENT_DATA
+// );
+
+// investment_data_db
+//   .asPromise()
+//   .then(() => {
+//     console.log("MongoDB connected to:", investment_data_db.name);
+//   })
+//   .catch((err) => {
+//     console.error("MongoDB connection error:", err);
+//   });
+
+// const stock_data_db = mongoose.createConnection(
+//   process.env.DATABASE_URL_STOCK_DATA
+// );
+
+// stock_data_db
+//   .asPromise()
+//   .then(() => {
+//     console.log("MongoDB connected to:", stock_data_db.name);
+//   })
+//   .catch((err) => {
+//     console.error("MongoDB connection error:", err);
+//   });
+
+// const macroeconomic_data_db = mongoose.createConnection(
+//   process.env.DATABASE_URL_MACROECONOMIC_DATA
+// );
+
+// macroeconomic_data_db
+//   .asPromise()
+//   .then(() => {
+//     console.log("MongoDB connected to:", macroeconomic_data_db.name);
+//   })
+//   .catch((err) => {
+//     console.error("MongoDB connection error:", err);
+//   });
 
 // Middleware
 app.use(express.json()); // Accept JSON from body in POST requests
@@ -33,9 +63,11 @@ app.use(express.json()); // Accept JSON from body in POST requests
 // Routes
 const notesRouter = require("./routes/notes");
 const profilesRouter = require("./routes/profiles");
+const treasuryRatesRouter = require("./routes/treasuryRates");
 
 app.use("/notes", notesRouter);
 app.use("/profiles", profilesRouter);
+app.use("/treasury-rates", treasuryRatesRouter);
 
 // Error handling
 app.use((req, res, next) => {

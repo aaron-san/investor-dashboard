@@ -1,51 +1,28 @@
 const express = require("express");
 
 const router = express.Router();
-const Profile = require("../models/profile");
+const { Profile } = require("../models/index");
+const {
+  getAllProfiles,
+  getOneProfile,
+  debug,
+} = require("../controllers/profiles");
 
 // Get all
-router.get("/", async (req, res) => {
-  try {
-    const profiles = await Profile.find({});
-    // const count = await Profile.countDocuments();
-    // console.log(count);
-    res.json(profiles.slice(0, 10));
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
+router.get("/", getAllProfiles);
+
+// Get one
+router.get("/:ticker", getOneProfile);
+
+// Get count and first one
+router.get("/debug", debug);
+
+// Get one
+router.get("/:id", getProfile, (req, res) => {
+  res.send(res.profile);
 });
 
-router.get("/debug", async (req, res) => {
-  try {
-    const profiles = await Profile.find();
-    res.json({ count: profiles.length, first: profiles[0] });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
-
-router.get("/:ticker", async (req, res) => {
-  try {
-    const query = req.params.ticker;
-    console.log(req.params.ticker);
-    const profile = await Profile.find({
-      ticker: new RegExp("^" + query, "i"),
-    });
-    console.log(profile);
-    // if (profile.length === 0) {
-    //   return res.status(404).json({ message: "Could not find profile" });
-    // }
-    res.json(profile);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
-
-// // Get one
-// router.get("/:id", getNote, (req, res) => {
-//   res.send(res.note);
-// });
-// // Creating one
+// Creating one
 // router.post("/", async (req, res) => {
 //   const note = new Note({
 //     company: req.body.company,
@@ -59,6 +36,7 @@ router.get("/:ticker", async (req, res) => {
 //     res.status(400).json({ message: err.message });
 //   }
 // });
+
 // // Updating one
 // router.patch("/:id", getNote, async (req, res) => {
 //   if (req.body.company !== null) {
@@ -89,18 +67,19 @@ router.get("/:ticker", async (req, res) => {
 //   }
 // });
 
-// async function getNote(req, res, next) {
-//   let note;
-//   try {
-//     note = await Note.findById(req.params.id);
-//     if (note === null) {
-//       return res.status(404).json({ message: "Could not find note" }); // could not find resources
-//     }
-//   } catch (err) {
-//     return res.status(500).json({ message: err.message });
-//   }
-//   res.note = note; // make res.note accessible to callback
-//   next();
-// }
+// Middleware - Get one
+async function getProfile(req, res, next) {
+  let profile;
+  try {
+    profile = await Profile.findById(req.params.id);
+    if (profile === null) {
+      return res.status(404).json({ message: "Could not find profile" }); // could not find resources
+    }
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+  res.profile = profile; // make res.note accessible to callback
+  next();
+}
 
 module.exports = router;

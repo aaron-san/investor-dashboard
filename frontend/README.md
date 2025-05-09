@@ -1,3 +1,5 @@
+// "dev": "start http://localhost:5174 && next dev --turbopack -p 5174",
+
 ```bash
 pnpm dlx shadcn@latest add button
 ```

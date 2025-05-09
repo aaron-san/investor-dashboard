@@ -1,9 +1,9 @@
-import { useProfileStore } from "@/store";
+import { useStore } from "@/store";
 import React from "react";
 import Pane from "./Pane";
 
-const Description = () => {
-  const profile = useProfileStore((state) => state.profile);
+const Profile = () => {
+  const profile = useStore((state) => state.profile);
 
   return (
     <Pane>
@@ -19,4 +19,4 @@ const Description = () => {
   );
 };
 
-export default Description;
+export default Profile;

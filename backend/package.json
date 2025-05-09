@@ -1,10 +1,11 @@
 {
   "name": "investor-dashboard",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A dashboard backend for investors to track their investments and performance.",
+  "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "tree": "tree .. -I \"node_modules|.git|.next\" -L 3 > ../tree.txt"
   },
   "keywords": [],
   "author": "",

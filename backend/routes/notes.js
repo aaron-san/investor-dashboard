@@ -1,65 +1,31 @@
 const express = require("express");
 
 const router = express.Router();
-const Note = require("../models/note");
+// const Note = require("../models/note");
+const {
+  getAllNotes,
+  createOneNote,
+  updateOneNote,
+  deleteOneNote,
+} = require("../controllers/notes");
 
 // Get all
-router.get("/", async (req, res) => {
-  try {
-    const notes = await Note.find();
-    res.json(notes);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
+router.get("/", getAllNotes);
+
 // Get one
 router.get("/:id", getNote, (req, res) => {
   res.send(res.note);
 });
 // Creating one
-router.post("/", async (req, res) => {
-  const note = new Note({
-    company: req.body.company,
-    asset: req.body.asset,
-    content: req.body.content,
-  });
-  try {
-    const newNote = await note.save();
-    res.status(201).json(note);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-});
-// Updating one
-router.patch("/:id", getNote, async (req, res) => {
-  if (req.body.company !== null) {
-    res.note.company = req.body.company;
-  }
-  if (req.body.asset !== null) {
-    res.note.asset = req.body.asset;
-  }
-  if (req.body.content !== null) {
-    res.note.content = req.body.content;
-  }
+router.post("/", createOneNote);
 
-  try {
-    const updatedNote = await res.note.save();
-    res.json(updatedNote);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-});
+// Updating one
+router.patch("/:id", getNote, updateOneNote);
 
 // Deleting one
-router.delete("/:id", getNote, async (req, res) => {
-  try {
-    await res.note.deleteOne();
-    res.json({ message: "Deleted note" });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
+router.delete("/:id", getNote, deleteOneNote);
 
+// Middleware - Get one
 async function getNote(req, res, next) {
   let note;
   try {

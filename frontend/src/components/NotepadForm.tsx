@@ -5,12 +5,14 @@ import Pane from "./Pane";
 const NotepadForm = () => {
   const tickerRef = React.useRef<HTMLInputElement>(null);
   const assetRef = React.useRef<HTMLInputElement>(null);
+  const titleRef = React.useRef<HTMLInputElement>(null);
   const [note, setNote] = useState("");
 
   const handleSubmit = async (e: FormEvent<HTMLElement>) => {
     e.preventDefault();
 
     await axios.post("http://localhost:3000/notes", {
+      title: titleRef.current?.value,
       ticker: tickerRef.current?.value,
       asset: assetRef.current?.value,
       note: note,
@@ -26,6 +28,12 @@ const NotepadForm = () => {
         Note:
       </label> */}
         <div className="flex gap-2">
+          <input
+            type="text"
+            ref={titleRef}
+            placeholder="Title"
+            className="bg-emerald-900/20 px-4 py-1 rounded outline-1 outline-border w-1/2 text-slate-200 text-tertiary"
+          />
           <input
             type="text"
             ref={tickerRef}

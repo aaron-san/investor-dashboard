@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer
       // style={{ gridArea: "footer" }}
-      className="flex justify-center items-center gap-6 col-span-2 row-start-5 row-end-6 bg-emerald-900 border-t border-border"
+      className="flex justify-center items-center gap-6 col-span-1 col-start-2 row-start-5 row-end-6 py-4 bg-border/20 border-x border-t border-border/60 rounded-t"
     >
       <a
         className="flex items-center gap-2 hover:underline hover:underline-offset-4"

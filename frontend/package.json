@@ -2,11 +2,13 @@
   "name": "investor-dashboard",
   "version": "0.1.0",
   "private": false,
+  "description": "A dashboard for investors to track their investments and performance.",
   "scripts": {
-    "dev": "start http://localhost:5174 && next dev --turbopack -p 5174",
+    "dev": "next dev --turbopack -p 5174",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "tree": "tree .. -I \"node_modules|.git|.next\" -L 3 > ../tree.txt"
   },
   "dependencies": {
     "@tanstack/react-table": "^8.21.3",

@@ -1,0 +1,51 @@
+..
+|-- README.md
+|-- backend
+|   |-- controllers
+|   |   `-- notes.js
+|   |-- db
+|   |   |-- index.js
+|   |   |-- investment_data.js
+|   |   |-- macroeconomic_data.js
+|   |   `-- stock_data.js
+|   |-- models
+|   |   |-- Note.js
+|   |   |-- Profile.js
+|   |   |-- TreasuryRates.js
+|   |   `-- index.js
+|   |-- notes.rest
+|   |-- package.json
+|   |-- profiles.rest
+|   |-- routes
+|   |   |-- notes.js
+|   |   |-- profiles.js
+|   |   `-- treasury_rates.js
+|   |-- server.js
+|   |-- treasury_rates.rest
+|   `-- tree.txt
+|-- frontend
+|   |-- README.md
+|   |-- components.json
+|   |-- eslint.config.mjs
+|   |-- next-env.d.ts
+|   |-- next.config.ts
+|   |-- package.json
+|   |-- pnpm-lock.yaml
+|   |-- postcss.config.mjs
+|   |-- public
+|   |   |-- file.svg
+|   |   |-- globe.svg
+|   |   |-- next.svg
+|   |   |-- vercel.svg
+|   |   `-- window.svg
+|   |-- src
+|   |   |-- app
+|   |   |-- components
+|   |   |-- lib
+|   |   `-- store.ts
+|   |-- tree.txt
+|   |-- tsconfig.json
+|   `-- types.d.ts
+`-- tree.txt
+
+11 directories, 37 files

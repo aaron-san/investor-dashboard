@@ -1,30 +1,19 @@
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { useProfileStore, IState } from "@/store";
+import { useStore, IState } from "@/store";
 import Pane from "./Pane";
 
 const CompanySearch = () => {
-  const [profiles, setProfiles] = useState<IProfile[]>([]);
   const [tickerMatches, setTickerMatches] = useState<IProfile[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const setTicker = useProfileStore((state) => state.setTicker);
-  const ticker = useProfileStore((state: IState) => state.ticker);
-  const setProfile = useProfileStore((state: IState) => state.setProfile);
-  const profile = useProfileStore((state: IState) => state.profile);
+  const setTicker = useStore((state) => state.setTicker);
+  const ticker = useStore((state: IState) => state.ticker);
+  const setProfile = useStore((state: IState) => state.setProfile);
+  const profile = useStore((state: IState) => state.profile);
 
-  useEffect(() => {
-    const getAllProfiles = async () => {
-      try {
-        const response = await axios.get("http://localhost:3000/profiles");
-        setProfiles(response.data);
-      } catch (err) {
-        console.log("Trouble getting profiles: ", err);
-      }
-    };
-    getAllProfiles();
-  }, []);
+  const profiles = useStore((state) => state.profiles);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,15 +23,31 @@ const CompanySearch = () => {
       return;
     }
 
-    setLoading(true);
-    try {
-      if (!inputRef.current?.value) setTickerMatches([]);
-      // console.log("inputRef: ", inputRef.current?.value);
+    const getTickerMatches = async () => {
       const response = await axios.get(
         `http://localhost:3000/profiles/${inputRef.current?.value}`
       );
       // console.log("response: ", JSON.stringify(response.data));
       setTickerMatches(response.data);
+    };
+    setLoading(true);
+    try {
+      if (!inputRef.current?.value) {
+        setTickerMatches([]);
+        return;
+      }
+      if (process.env.NEXT_PUBLIC_ENVIRONMENT === "production") {
+        const input = inputRef.current?.value.toUpperCase();
+        console.log(input);
+        const tickerMatches = profiles?.filter((prof) =>
+          prof.ticker.toUpperCase().match(input)
+        );
+        console.log(tickerMatches);
+        setTickerMatches(tickerMatches ?? []);
+        return;
+      } else {
+        getTickerMatches();
+      }
     } catch (error) {
       console.error("Error fetching data: ", error);
       setTickerMatches([]);
@@ -51,12 +56,15 @@ const CompanySearch = () => {
     }
   };
 
-  const handleSelect = (ticker: string) => {
-    const profile = profiles.find((profile) => profile.ticker === ticker);
-    if (profile) {
-      setProfile(profile);
-    }
-  };
+  // useEffect(() => {
+  //   console.log(tickerMatches);
+  // }, [tickerMatches]);
+  // const handleSelect = (ticker: string) => {
+  //   const profile = profiles?.find((profile) => profile.ticker === ticker);
+  //   if (profile) {
+  //     setProfile(profile);
+  //   }
+  // };
   // setTicker(inputRef.current?.value ?? "Not specified");
   // console.log("Ticker: ", ticker);
 
@@ -64,7 +72,6 @@ const CompanySearch = () => {
     <Pane>
       <form onSubmit={(e) => handleSubmit(e)} className="flex flex-col gap-2">
         <label htmlFor="ticker">Choose a ticker:</label>
-        <div>{ticker}</div>
         <div className="flex gap-2">
           <input
             type="text"

@@ -1,0 +1,42 @@
+
+// Get all
+GET http://localhost:3000/treasury-rates
+
+### 
+
+// Get one by regex
+GET http://localhost:3000/profiles/R
+
+###
+
+POST http://localhost:3000/notes
+Content-Type: application/json
+
+{
+    "company": "Home Depot",
+    "asset": "bond",
+    "content": "The bond appears to be underpriced."
+}
+
+# {
+#     "company": "Microsoft",
+#     "asset": "stock",
+#     "content": "The stock appears to be underpriced."
+# }
+
+###
+
+DELETE http://localhost:3000/notes/680a3a0c36b993f24fbef05b
+
+###
+
+PATCH http://localhost:3000/notes/680a3b6f20907ae3e183a1ce
+Content-Type: application/json
+
+{
+    "company": "Microsoft",
+    "asset": "bond",
+    "content": "The bond appears to be underpriced."
+}
+
+
