@@ -1,30 +1,10 @@
 "use client";
 import { useStore } from "@/store";
-import React, { useEffect } from "react";
 import Pane from "./Pane";
-import axios from "axios";
-import { notes as mockNotes } from "@/mockData";
 
 const Notes = () => {
   const notes = useStore((state) => state.notes);
-  const setNotes = useStore((state) => state.setNotes);
 
-  useEffect(() => {
-    async function fetchNotes() {
-      try {
-        if (process.env.NEXT_PUBLIC_ENVIRONMENT === "production") {
-          setNotes(mockNotes);
-        } else {
-          const response = await axios.get("http://localhost:3000/notes");
-          setNotes(response.data);
-        }
-      } catch (err) {
-        console.error("Error loading notes", err);
-      }
-    }
-
-    fetchNotes();
-  }, [setNotes]);
   return (
     <Pane>
       <h1>Notes:</h1>

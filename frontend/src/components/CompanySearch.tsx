@@ -31,9 +31,9 @@ const CompanySearch = () => {
         <p className="mt-2">Loading...</p>
       ) : (
         inputValue &&
-        results.length > 0 && (
+        results && (
           <ul className="flex flex-wrap gap-2 mt-4 p-2 border border-border rounded max-h-[160px] overflow-auto">
-            {results.map((profile) => (
+            {results?.map((profile) => (
               <li
                 key={profile.ticker}
                 className="px-2 py-1 bg-border hover:bg-border/90 rounded duration-200 ease-in-out cursor-pointer"
