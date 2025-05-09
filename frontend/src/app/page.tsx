@@ -1,7 +1,5 @@
 "use client";
 // import Image from "next/image";
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { PriceChart } from "@/components/PriceChart";
 import Notepad from "@/components/Notepad";
 import Table from "@/components/Table";
