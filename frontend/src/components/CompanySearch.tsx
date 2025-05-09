@@ -37,7 +37,7 @@ const CompanySearch = () => {
     }
 
     fetchProfiles();
-  }, []);
+  }, [setProfiles]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

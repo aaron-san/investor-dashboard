@@ -24,7 +24,7 @@ const Notes = () => {
     }
 
     fetchNotes();
-  }, []);
+  }, [setNotes]);
   return (
     <Pane>
       <h1>Notes:</h1>
