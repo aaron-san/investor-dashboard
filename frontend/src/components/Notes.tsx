@@ -6,7 +6,9 @@ import Pane from "./Pane";
 const Notes = () => {
   const notes = useStore((state) => state.notes);
   //   const setNotes = useStore((state) => state.setNotes);
+  console.log("Notes in debug: ", notes);
 
+  //   const handleAddNote = (newNote: INote) => {};
   return (
     <Pane>
       <h1>Notes:</h1>
