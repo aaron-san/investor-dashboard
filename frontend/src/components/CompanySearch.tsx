@@ -1,8 +1,9 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useStore, IState } from "@/store";
 import Pane from "./Pane";
+import { profiles as mockProfiles } from "@/mockData";
 
 const CompanySearch = () => {
   const [tickerMatches, setTickerMatches] = useState<IProfile[]>([]);
@@ -10,11 +11,33 @@ const CompanySearch = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const setTicker = useStore((state) => state.setTicker);
+  // const notes = useStore((state) => state.notes);
+  // const setNotes = useStore((state) => state.setNotes);
   // const ticker = useStore((state: IState) => state.ticker);
   const setProfile = useStore((state: IState) => state.setProfile);
   // const profile = useStore((state: IState) => state.profile);
 
   const profiles = useStore((state) => state.profiles);
+  const setProfiles = useStore((state) => state.setProfiles);
+
+  useEffect(() => {
+    async function fetchProfiles() {
+      try {
+        if (process.env.NEXT_PUBLIC_ENVIRONMENT === "production") {
+          // Save to zustand store
+          setProfiles(mockProfiles);
+        } else {
+          const response = await axios.get("http://localhost:3000/profiles");
+          // Save to zustand store
+          setProfiles(response.data);
+        }
+      } catch (err) {
+        console.error("Error loading profiles", err);
+      }
+    }
+
+    fetchProfiles();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,27 +48,31 @@ const CompanySearch = () => {
     }
 
     const getTickerMatches = async () => {
-      const response = await axios.get(
-        `http://localhost:3000/profiles/${inputRef.current?.value}`
-      );
-      setTickerMatches(response.data);
+      try {
+        const input = inputRef.current?.value.toUpperCase();
+        if (process.env.NEXT_PUBLIC_ENVIRONMENT === "production") {
+          // Save to zustand store
+          const matches = profiles?.filter(
+            (prof) => prof.ticker.toUpperCase().includes("A")
+            // prof.ticker.toUpperCase().match("A")
+          );
+          setTickerMatches(matches ?? []);
+        } else {
+          const response = await axios.get(
+            `http://localhost:3000/profiles/${input}`
+          );
+          setTickerMatches(response.data);
+          // Save to zustand store
+          // setProfiles(response.data);
+        }
+      } catch (err) {
+        console.error("Error loading profiles", err);
+      }
     };
+
     setLoading(true);
     try {
-      if (!inputRef.current?.value) {
-        setTickerMatches([]);
-        return;
-      }
-      if (process.env.NEXT_PUBLIC_ENVIRONMENT === "production") {
-        const input = inputRef.current?.value.toUpperCase();
-        const tickerMatches = profiles?.filter((prof) =>
-          prof.ticker.toUpperCase().match(input)
-        );
-        setTickerMatches(tickerMatches ?? []);
-        return;
-      } else {
-        getTickerMatches();
-      }
+      await getTickerMatches();
     } catch (error) {
       console.error("Error fetching data: ", error);
       setTickerMatches([]);
