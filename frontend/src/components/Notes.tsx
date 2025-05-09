@@ -1,5 +1,4 @@
 "use client";
-import axios from "axios";
 import { useStore } from "@/store";
 import React from "react";
 import Pane from "./Pane";
@@ -15,7 +14,10 @@ const Notes = () => {
       <div className="mt-2">
         {notes?.map((note) => {
           return (
-            <div className="my-4 px-2 py-4 border border-border-60 rounded">
+            <div
+              className="my-4 px-2 py-4 border border-border-60 rounded"
+              key={note._id}
+            >
               <div className="mr-2 text-slate-400 text-xs">
                 {note.dateModified.toDateString()}
               </div>

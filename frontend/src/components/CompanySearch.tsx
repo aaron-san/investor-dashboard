@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import axios from "axios";
 import { useStore, IState } from "@/store";
 import Pane from "./Pane";
@@ -9,9 +9,9 @@ const CompanySearch = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const setTicker = useStore((state) => state.setTicker);
-  const ticker = useStore((state: IState) => state.ticker);
+  // const ticker = useStore((state: IState) => state.ticker);
   const setProfile = useStore((state: IState) => state.setProfile);
-  const profile = useStore((state: IState) => state.profile);
+  // const profile = useStore((state: IState) => state.profile);
 
   const profiles = useStore((state) => state.profiles);
 
@@ -27,7 +27,6 @@ const CompanySearch = () => {
       const response = await axios.get(
         `http://localhost:3000/profiles/${inputRef.current?.value}`
       );
-      // console.log("response: ", JSON.stringify(response.data));
       setTickerMatches(response.data);
     };
     setLoading(true);
@@ -38,11 +37,9 @@ const CompanySearch = () => {
       }
       if (process.env.NEXT_PUBLIC_ENVIRONMENT === "production") {
         const input = inputRef.current?.value.toUpperCase();
-        console.log(input);
         const tickerMatches = profiles?.filter((prof) =>
           prof.ticker.toUpperCase().match(input)
         );
-        console.log(tickerMatches);
         setTickerMatches(tickerMatches ?? []);
         return;
       } else {
@@ -101,7 +98,7 @@ const CompanySearch = () => {
         inputRef.current?.value &&
         tickerMatches.length > 0 && (
           <ul className="flex flex-wrap gap-2 mt-4 p-2 border border-border rounded max-h-[160px] overflow-auto">
-            {tickerMatches.map((profile) => {
+            {tickerMatches?.map((profile) => {
               return (
                 <li
                   key={profile.ticker}
