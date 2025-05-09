@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
 import { useState } from "react";
 import Footer from "@/components/Footer";
+import LoadMockData from "@/components/LoadMockData";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -51,6 +52,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <LoadMockData />
       </body>
     </html>
   );
