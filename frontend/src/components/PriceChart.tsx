@@ -40,8 +40,6 @@ const mergeByDate = (a1: IChartData[], a2: IChartData[]) => {
 
 const chartData = mergeByDate(SP500, unemploymentRate);
 
-console.log(chartData);
-
 // const chartData = [
 //   { month: "January", desktop: 186, mobile: 80 },
 //   { month: "February", desktop: 305, mobile: 200 },

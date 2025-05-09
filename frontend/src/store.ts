@@ -1,3 +1,5 @@
+"use client";
+
 import { create } from "zustand";
 import axios from "axios";
 const environment = process.env.NEXT_PUBLIC_ENVIRONMENT;
