@@ -2318,6 +2318,30 @@ const EXJPUS = [
   },
 ];
 
+const initialClaims = [
+  {
+    _id: {
+      $oid: "66f500be272a5d9b72c09a91",
+    },
+    date: "2000-01-01",
+    value: "243",
+  },
+  {
+    _id: {
+      $oid: "66f500be272a5d9b72c09a92",
+    },
+    date: "2000-02-01",
+    value: "234",
+  },
+  {
+    _id: {
+      $oid: "66f500be272a5d9b72c09a93",
+    },
+    date: "2000-03-01",
+    value: "250",
+  },
+];
+
 module.exports = {
   notes,
   profiles,
@@ -2325,4 +2349,5 @@ module.exports = {
   SP500,
   unemploymentRate,
   EXJPUS,
+  initialClaims,
 };

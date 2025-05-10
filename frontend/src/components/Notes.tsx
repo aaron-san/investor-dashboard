@@ -7,9 +7,13 @@ const Notes = () => {
 
   return (
     <Pane>
-      <h1>Notes:</h1>
-      <hr />
-      <div className="mt-2">
+      {/* Sticky header */}
+      <div className="top-0 z-10 sticky">
+        <h1 className="border-slate-100/20 border-b w-full text-xl">Notes:</h1>
+      </div>
+
+      {/* Scrollable notes list */}
+      <div className="flex-1 mt-2 overflow-auto hide-scrollbar">
         {notes?.map((note) => {
           return (
             <div
@@ -20,7 +24,7 @@ const Notes = () => {
                 {note.dateModified.toDateString()}
               </div>
               <span className="mr-2 text-border text-xs">
-                {note.ticker || note.asset || note.title || ""}:
+                {note.ticker || note.asset || note.title || ""}
               </span>
               {note.content}
             </div>

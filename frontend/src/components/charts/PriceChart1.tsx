@@ -8,8 +8,8 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import Pane from "./Pane";
-import { SP500, unemploymentRate } from "../mockData";
+import Pane from "../Pane";
+import { SP500, unemploymentRate } from "../../mockData";
 
 interface IChartData {
   _id: string;
