@@ -9,7 +9,10 @@
 
 // const { sp500, unemploymentRate } = require("./frontend/src/mockData");
 
-// const mergeByDate = (a1, a2) => {
+// const mergeByDate = (a1, a2) => {const titleCamel = "initialClaims";
+const titleCamel = "initialClaimsHere";
+const title = titleCamel.split(/(?=[A-Z])/).join(" ");
+console.log(title);
 //   const map = new Map();
 
 //   a1.forEach(({ date, value }) => {

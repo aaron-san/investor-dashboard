@@ -5,6 +5,7 @@ import { FiAlignJustify } from "react-icons/fi";
 import { FaRegQuestionCircle } from "react-icons/fa";
 import { IoStatsChartSharp } from "react-icons/io5";
 import { CiViewTable } from "react-icons/ci";
+import { FaHome } from "react-icons/fa";
 
 interface ISidebar {
   openSidebar: boolean;
@@ -32,6 +33,12 @@ const Sidebar: React.FC<ISidebar> = ({ openSidebar, setOpenSidebar }) => {
           className={`flex flex-col gap-4 pt-16 w-full
            ${!openSidebar ? "px-1" : "pl-4"}`}
         >
+          <Link href="/" className="hover:text-green-300">
+            <div className="flex items-center gap-1">
+              <FaHome className="mx-2 text-xl" />
+              {openSidebar && <p>Main</p>}
+            </div>
+          </Link>
           <Link href="/about" className="hover:text-green-300">
             <div className="flex items-center gap-1">
               <FaRegQuestionCircle className="mx-2 text-xl" />

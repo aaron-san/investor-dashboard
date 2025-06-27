@@ -7,6 +7,7 @@ import Sidebar from "@/components/Sidebar";
 import { useState } from "react";
 import Footer from "@/components/Footer";
 import LoadMockData from "@/components/LoadMockData";
+import ContentHeader from "@/components/ContentHeader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,6 +43,7 @@ export default function RootLayout({
       >
         <Header />
         <Sidebar openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
+
         <main
           // style={{ gridArea: "main" }}
           // style={{
@@ -49,6 +51,7 @@ export default function RootLayout({
           // }}
           className="grid-cols-1 col-end-3 row-start-2 row-end-5 mt-12 border border-slate-800/50 rounded-md cols-start-2"
         >
+          <ContentHeader />
           {children}
         </main>
         <Footer />
